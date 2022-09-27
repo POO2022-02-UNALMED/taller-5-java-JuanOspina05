@@ -1,66 +1,99 @@
-from gestion.zona import Zona
+package zooAnimales;
 
-class Animal:
+import gestion.*;
 
-	_totalAnimales = 0
+public class Animal {
+    private static int totalAnimales=0;
+    private String nombre;
+    private int edad;
+    private String habitat;
+    private String genero;
+    private Zona zona;
+   
+    public Animal() {
+        this(null, 0, null, null);
+    }   
 
-	def __init__(self,nombre, edad, habitat, genero, zona=None):
-		self._nombre = nombre
-		self._edad = edad
-		self._habitat = habitat
-		self._genero = genero
-		self._zona = zona
-		Animal._totalAnimales+=1
+    public Animal(String nombre, int edad, String habitat, String genero) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.habitat = habitat;
+        this.genero = genero;
+        totalAnimales++;
+    }
 
-	def movimiento():
-		return "desplazarse"
+	public String getNombre() {
+		return nombre;
+	}
 
-	@classmethod
-	def totalPorTipo(cls):
-		from zooAnimales.anfibio import Anfibio
-		from zooAnimales.reptil import Reptil
-		from zooAnimales.mamifero import Mamifero
-		from zooAnimales.ave import Ave
-		from zooAnimales.pez import Pez
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-		return f"Mamiferos : {Mamifero.cantidadMamiferos()}\nAves : {Ave.cantidadAves()}\nReptiles : {Reptil.cantidadReptiles()}\nPeces : {Pez.cantidadPeces()}\nAnfibios : {Anfibio.cantidadAnfibios()}"
+	public int getEdad() {
+		return edad;
+	}
 
-	def toString(self):
-		if self._zona != None:
-			return f"Mi nombre es {self._nombre}, tengo una edad de {self._edad}, habito en {self._habitat} y mi genero es {self._genero}, la zona en la que me ubico es {self._zona.getNombre()} en el {self._zona.getZoo().getNombre()}"
-		else:
-			return f"Mi nombre es {self._nombre}, tengo una edad de {self._edad}, habito en {self._habitat} y mi genero es {self._genero}"
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
 
+	public String getHabitat() {
+		return habitat;
+	}
 
-	def getHabitat(self):
-		return self._habitat
+	public void setHabitat(String habitat) {
+		this.habitat = habitat;
+	}
 
-	def setHabitat(self, habitat):
-		self._habitat = habitat
+	public String getGenero() {
+		return genero;
+	}
 
-	def getGenero(self):
-		return self._genero
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
 
-	def setGenero(self, genero):
-		self._genero = genero
+	public Zona getZona() {
+		return zona;
+	}
 
-	def getTotalAnimales(cls):
-		return cls._totalAnimales
+	public void setZona(Zona zona) {
+		this.zona = zona;
+	}
+	public static int getTotalAnimales() {
+        return totalAnimales;
+    }
 
-	def getZona(self):
-		return self._zona[0]
-
-	def setZona(self, zona):
-		self._zona[0] = zona
-
-	def getNombre(self):
-		return self._nombre
-
-	def setNombre(self,nombre):
-		self._nombre = nombre
-
-	def getEdad(self):
-		return self._edad
-
-	def setEdad(self, edad):
-		self._edad = edad
+    public static void setTotalAnimales(int totalAnimales) {
+        Animal.totalAnimales = totalAnimales;
+    }
+    public static String totalPorTipo() {
+    	return "Mamiferos: " + Mamifero.totalMamifero + "\n" +
+    			"Aves: " + Ave.totalAve + "\n" +
+    			"Reptiles: " + Reptil.totalReptil+ "\n" +
+    			"Peces: " + Pez.totalPez + "\n" +
+    			"Anfibios: " + Anfibio.totalAnfibio;		
+    }
+    public String movimiento() {
+    	return "desplazarse";
+    }
+    @Override
+    public String toString(){
+        if (this.zona==null){
+            return "Mi nombre es "+ getNombre()+
+                    ", tengo una edad de "+getEdad()+
+                    ", habito en " +getHabitat()+
+                    " y mi genero es " +getGenero();
+        }
+        else{
+            return "Mi nombre es "+getNombre()+
+                        ", tengo una edad de "+getEdad()+
+                        ", habito en " +getHabitat()+
+                        " y mi genero es " +getGenero()+
+                        ", la zona en la que me ubico es "+zona.getNombre()+
+                        ", en el "+zona.getZoo().getNombre();
+        }
+    }
+    
+}
